@@ -2,7 +2,7 @@ from openai import OpenAI
 
 client = OpenAI()
 
-VECTOR_STORE_ID = "vs_..."  # your vector store
+VECTOR_STORE_ID = "vs_699cbe091514819182d503f1c6765803"  # your vector store
 
 def answer_question(user_question: str) -> str:
     system_instructions = """
