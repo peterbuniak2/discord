@@ -1,25 +1,25 @@
-# Run with: .venv/bin/python discord_only.py
 from dotenv import load_dotenv
+import discord
+import os
+
+# Load environment variables from .env file
 load_dotenv()
 
-import os
-import ssl
-import certifi
-
-# Fix SSL certificate verification on macOS (Python.org installs)
-ssl._create_default_https_context = lambda: ssl.create_default_context(cafile=certifi.where())
-
-import discord
-from discord.ext import commands
-
+# Set up intents
 intents = discord.Intents.default()
-intents.message_content = True
+intents.message_content = True  # Ensure that your bot can read message content
 
 client = discord.Client(intents=intents)
+
+@client.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(client))
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return
+
     if message.content.startswith('$hello'):
         await message.channel.send('Hello!')
 
